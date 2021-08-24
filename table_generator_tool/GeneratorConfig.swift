@@ -78,13 +78,41 @@ class GeneratorConfig
             let data = try Data(contentsOf: GeneratorConfig._configFullPathUrl)
             
             let jsonDecoder = JSONDecoder()
-            let configData = try jsonDecoder.decode(GeneratorConfigData.self, from: data)
+            var configData = try jsonDecoder.decode(GeneratorConfigData.self, from: data)
         
+            checkValidate(configData: &configData)
+            
             return configData
         }
         catch
         {
             return GeneratorConfigData()
+        }
+    }
+    
+    public static func checkValidate(configData:inout GeneratorConfigData)
+    {
+        let fileManager = FileManager.default
+        
+        if configData.configPath.isEmpty == false
+        {
+            if fileManager.fileExists(atPath: configData.configPath) == false {
+                configData.configPath = ""
+            }
+        }
+        
+        if configData.coreBinPath.isEmpty == false
+        {
+            if fileManager.fileExists(atPath: configData.coreBinPath) == false {
+                configData.coreBinPath = ""
+            }
+        }
+        
+        if configData.workspacePath.isEmpty == false
+        {
+            if fileManager.fileExists(atPath: configData.workspacePath) == false {
+                configData.workspacePath = ""
+            }
         }
     }
     

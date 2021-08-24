@@ -37,7 +37,7 @@ if [[ ! -d ./table_generator_core ]]; then
     echo "======== clone vtok project ======="
     echo "==================================="
 
-    git clone --progress https://${GIR_ID}@github.com/golbeng/table_generator.git
+    git clone --progress https://${GIT_ID}@github.com/golbeng/table_generator_core.git
     
     cd "${WORKSPACE}/table_generator_core/commands"
     ./env_install.command
